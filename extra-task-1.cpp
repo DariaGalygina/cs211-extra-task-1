@@ -1,4 +1,5 @@
 #include <iostream>
+#include <assert.h>
 #include "extraHW.h"
 using namespace std;
 
@@ -14,54 +15,56 @@ double hours_difference(double time_1, double time_2)
     return seconds_difference(time_1, time_2) / 3600;
 }
 
+//Return the total number of hours in the specified number of hours, minutes, and seconds
 double to_float_hours(int hours, int minutes, int seconds)
 {
-    return 0;
-    /*
-        Return the total number of hours in the specified number
-        of hours, minutes, and seconds.
-
-        Precondition: 0 <= minutes < 60  and  0 <= seconds < 60
-
-        >>> to_float_hours(0, 15, 0)
-        0.25
-
-        >>> to_float_hours(2, 45, 9)
-        2.7525
-
-        >>> to_float_hours(1, 0, 36)
-        1.01
-    */
+    assert(0 <= minutes && minutes < 60 && 0 <= seconds && seconds < 60);
+    return hours + minutes / 60.0 + seconds / 3600.0;
 }
 
+//Return the hour as seen on a 24 - hour clock
 double to_24_hour_clock(double hours)
 {
-    return 0;
-    /*
-        hours is a number of hours since midnight. Return the
-        hour as seen on a 24-hour clock.
+    assert(hours >= 0);
+    while (hours > 24.0)
+        hours -= 24;
+    return hours;
+}
 
-        Precondition: hours >= 0
+//Determine the hours part of a time in seconds
+int get_hours(int seconds)
+{
+    int res = 0;
+    assert(seconds >= 0);
+    while (seconds > 3600)
+    {
+        seconds -= 3600;
+        res++;
+    }
+    return res;
+}
 
-        >>> to_24_hour_clock(24)
-        0
-        
-        >>> to_24_hour_clock(48)
-        0
-        
-        >>> to_24_hour_clock(25)
-        1
-        
-        >>> to_24_hour_clock(4)
-        4
-        
-        >>> to_24_hour_clock(28.5)
-        4.5
-        
-        You may wish to inspect various function in <cmath> to work
-        with integer and fractional part of a hours separately.
-        
-    */
+//Determine the minutes part of a time in seconds
+int get_minutes(int seconds)
+{
+    assert(seconds >= 0);
+    while (seconds > 3600)
+    {
+        seconds -= 3600;
+    }
+    return seconds / 60;
+}
+
+//Determine the seconds part of a time in seconds
+int get_seconds(int seconds)
+{
+    assert(seconds >= 0);
+    int m = get_minutes(seconds) * 60;
+    while (seconds > 3600)
+    {
+        seconds -= 3600;
+    }
+    return seconds - m;
 }
 
 /*

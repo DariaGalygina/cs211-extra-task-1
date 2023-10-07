@@ -57,6 +57,28 @@ int main()
 		assert(get_seconds(7300) == 40);
 		assert(get_seconds(1335) == 15);
 	}
+	{
+		//Task8
+		assert(12.0 - time_to_utc(+0, 12.0) < eps);
+		assert(11.0 - time_to_utc(+1, 12.0) < eps);
+		assert(13.0 - time_to_utc(-1, 12.0) < eps);
+		assert(5.0 - time_to_utc(-11, 18.0) < eps);
+		assert(1.0 - time_to_utc(-1, 0.0) < eps);
+		assert(0.0 - time_to_utc(-1, 23.0) < eps);
+		assert(10.0 - time_to_utc(+11, 23.0) < eps);
+	}
+	{
+		//Task9
+		assert(12.0 - time_from_utc(+0, 12.0) < eps);
+		assert(13.0 - time_from_utc(+1, 12.0) < eps);
+		assert(11.0 - time_from_utc(-1, 12.0) < eps);
+		assert(12.0 - time_from_utc(+6, 6.0) < eps);
+		assert(23.0 - time_from_utc(-7, 6.0) < eps);
+		assert(23.0 - time_from_utc(-1, 0.0) < eps);
+		assert(22.0 - time_from_utc(-1, 23.0) < eps);
+		assert(0.0 - time_from_utc(+1, 23.0) < eps);
+		assert(14.0 - time_from_utc(+2, 12.0) < eps);
+	}
 
 	system("pause");
 }
